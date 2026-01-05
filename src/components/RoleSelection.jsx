@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './RoleSelection.css'
 
 const RoleSelection = () => {
+  const navigate = useNavigate()
   const [selectedRoles, setSelectedRoles] = useState({
     student: false,
     teacher: false
@@ -24,7 +26,11 @@ const RoleSelection = () => {
       return
     }
     
-    console.log('Selected roles:', roles)
+    if (roles.includes('teacher')) {
+      navigate('/create-poll')
+    } else {
+      console.log('Selected roles:', roles)
+    }
   }
 
   return (
