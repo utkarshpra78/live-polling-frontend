@@ -1,0 +1,346 @@
+.poll-display-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.poll-content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+.poll-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+  min-height: 0;
+}
+
+.poll-display-header-top {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+}
+
+.poll-display-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-icon {
+  font-size: 20px;
+}
+
+.timer-text {
+  color: #373737;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.timer-text.expired {
+  color: #FF0000;
+}
+
+.poll-display-title {
+  color: #373737;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  text-align: left;
+}
+
+.view-history-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  color: #F2F2F2;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-history-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(119, 101, 218, 0.3);
+}
+
+.eye-icon {
+  font-size: 16px;
+}
+
+.poll-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 32px;
+  width: 100%;
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.question-header-bar {
+  background: linear-gradient(135deg, #373737 0%, #2a2a2a 100%);
+  padding: 20px 24px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  border: 2px solid #373737;
+  border-radius: 8px;
+}
+
+.question-header-bar .question-text,
+.question-header-bar p.question-text,
+.question-header-bar p,
+.poll-card .question-header-bar .question-text,
+.poll-card .question-header-bar p {
+  color: #FFFFFF !important;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.5;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+}
+
+.option-button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background-color: #F2F2F2;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.option-button.option-winning {
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  box-shadow: 0 4px 12px rgba(119, 101, 218, 0.3);
+}
+
+.option-button.option-winning .option-text {
+  color: #FFFFFF !important;
+}
+
+.option-button.option-winning .option-number-circle {
+  background: rgba(242, 242, 242, 0.25);
+  border: 1px solid rgba(242, 242, 242, 0.4);
+}
+
+.option-number-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #4F0DCE !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  flex-shrink: 0;
+  border: 2px solid #4F0DCE;
+  z-index: 2;
+  position: relative;
+}
+
+.option-text {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  flex: 1;
+  z-index: 1;
+  position: relative;
+}
+
+/* Make all option text white when progress bars are visible (teacher view always shows results) */
+.option-button .option-text {
+  color: #000000 !important;
+}
+
+.progress-bar-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  overflow: hidden;
+  border-radius: 12px;
+  z-index: 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #4F0DCE; 
+  transition: width 0.3s ease;
+  border-radius: 12px;
+}
+
+.percentage-text {
+  color: #000000 !important;
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 45px;
+  text-align: right;
+  flex-shrink: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.option-button.option-winning .percentage-text {
+  color: #000000 !important;
+}
+
+.ask-new-question-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-right: 0;
+}
+
+.ask-new-question-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  color: #F2F2F2;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(119, 101, 218, 0.3);
+}
+
+.ask-new-question-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(119, 101, 218, 0.4);
+}
+
+.plus-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  color: #F2F2F2;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(119, 101, 218, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(119, 101, 218, 0.4);
+}
+
+.no-poll-message {
+  text-align: center;
+  color: #6E6E6E;
+  font-size: 18px;
+  padding: 40px;
+}
+
+.wait-message {
+  text-align: center;
+  color: #373737;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 30px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .poll-content-wrapper {
+    padding: 20px;
+  }
+
+  .poll-display-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .option-bar {
+    flex-wrap: wrap;
+  }
+}
+

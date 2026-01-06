@@ -10,10 +10,10 @@ const RoleSelection = () => {
   })
 
   const handleRoleToggle = (role) => {
-    setSelectedRoles(prev => ({
-      ...prev,
-      [role]: !prev[role]
-    }))
+    setSelectedRoles({
+      student: role === 'student',
+      teacher: role === 'teacher'
+    })
   }
 
   const handleContinue = () => {
@@ -28,6 +28,8 @@ const RoleSelection = () => {
     
     if (roles.includes('teacher')) {
       navigate('/create-poll')
+    } else if (roles.includes('student')) {
+      navigate('/getstart')
     } else {
       console.log('Selected roles:', roles)
     }

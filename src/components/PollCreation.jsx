@@ -1,13 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSocket } from '../hooks/useSocket'
 import './PollCreation.css'
 
 const PollCreation = () => {
+  const navigate = useNavigate()
+  const { socket } = useSocket()
   const [question, setQuestion] = useState('')
   const [timeLimit, setTimeLimit] = useState('60')
   const [options, setOptions] = useState([
     { id: 1, text: '', isCorrect: null },
     { id: 2, text: '', isCorrect: null }
   ])
+  const [error, setError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    if (!socket) return
+
+    socket.emit('select-roles', { roles: ['teacher'] })
+
+    socket.on('poll-created', (data) => {
+      setIsSubmitting(false)
+      if (data.success) {
+        navigate('/poll-display', { state: { poll: data.poll } })
+      } else {
+        setError(data.error || 'Failed to create poll')
+      }
+    })
+
+    socket.on('error', (data) => {
+      setIsSubmitting(false)
+      setError(data.message || 'An error occurred')
+    })
+
+    return () => {
+      socket.off('poll-created')
+      socket.off('error')
+    }
+  }, [socket, navigate])
 
   const handleQuestionChange = (e) => {
     const value = e.target.value
@@ -34,27 +65,35 @@ const PollCreation = () => {
   }
 
   const handleAskQuestion = () => {
+    setError(null)
+
     if (!question.trim()) {
-      alert('Please enter a question')
+      setError('Please enter a question')
       return
     }
 
     const validOptions = options.filter(opt => opt.text.trim())
     if (validOptions.length < 2) {
-      alert('Please add at least 2 options')
+      setError('Please add at least 2 options')
       return
     }
 
     const hasCorrectAnswer = validOptions.some(opt => opt.isCorrect === true)
     if (!hasCorrectAnswer) {
-      alert('Please mark at least one option as correct')
+      setError('Please mark at least one option as correct')
       return
     }
 
-    console.log('Poll created:', {
-      question,
-      timeLimit: parseInt(timeLimit),
-      options: validOptions
+    if (!socket) {
+      setError('Connection not established. Please wait a moment and try again.')
+      return
+    }
+
+    setIsSubmitting(true)
+    socket.emit('create-poll', {
+      question: question.trim(),
+      options: validOptions,
+      timeLimit: parseInt(timeLimit)
     })
   }
 
@@ -71,6 +110,19 @@ const PollCreation = () => {
           <p className="page-subtitle">
             you'll have the ability to create and manage polls, ask questions, and monitor your students' responses in real-time.
           </p>
+
+          {error && (
+            <div className="error-message" style={{ 
+              backgroundColor: '#FFE5E5', 
+              color: '#D32F2F', 
+              padding: '12px 16px', 
+              borderRadius: '8px', 
+              marginBottom: '20px',
+              fontSize: '14px'
+            }}>
+              {error}
+            </div>
+          )}
 
           <div className="question-section">
             <div className="section-header">
@@ -146,8 +198,12 @@ const PollCreation = () => {
 
         <div className="ask-question-container">
           <div className="ask-question-wrapper">
-            <button className="ask-question-button" onClick={handleAskQuestion}>
-              Ask Question
+            <button 
+              className="ask-question-button" 
+              onClick={handleAskQuestion}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Creating...' : 'Ask Question'}
             </button>
           </div>
         </div>

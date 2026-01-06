@@ -1,0 +1,133 @@
+.student-start-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 40px 20px;
+}
+
+.student-start-content {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  padding: 8px 16px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.star-icon {
+  color: #F2F2F2;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.logo-text {
+  color: #F2F2F2;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.page-title {
+  color: #373737;
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.page-description {
+  color: #373737;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+  max-width: 500px;
+}
+
+.page-description strong {
+  font-weight: 700;
+}
+
+.name-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name-label {
+  color: #373737;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.name-input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #E0E0E0;
+  border-radius: 12px;
+  background-color: #F2F2F2;
+  font-size: 16px;
+  font-family: inherit;
+  color: #373737;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+  border-color: #7765DA;
+  background-color: #ffffff;
+}
+
+.continue-button {
+  background: linear-gradient(135deg, #7765DA 0%, #5767D0 100%);
+  color: #F2F2F2;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(119, 101, 218, 0.3);
+}
+
+.continue-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(119, 101, 218, 0.4);
+}
+
+.continue-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 32px;
+  }
+
+  .page-description {
+    font-size: 14px;
+  }
+
+  .student-start-content {
+    gap: 24px;
+  }
+}
+
